@@ -10,12 +10,23 @@ num mathMin(List<num> args) {
   return m;
 }
 
+num mathMax(List<num> args) {
+  var m = args[0];
+  for (var i = 0; i < args.length; i++) {
+    if (args[i] > m) {
+      m = args[i];
+    }
+  }
+  return m;
+}
+
 class Math {
   static num abs(x) => sqrt(x * x);
   static num min(List<num> args) => mathMin(args);
+  static num max(List<num> args) => mathMax(args);
 }
 
-typedef Array = List;
+typedef Array = List<dynamic>;
 typedef function = dynamic;
 typedef let = dynamic;
 int parseInt(x) {
