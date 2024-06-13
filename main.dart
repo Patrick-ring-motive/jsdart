@@ -24,6 +24,11 @@ class Math {
   static num abs(x) => sqrt(x * x);
   static num min(List<num> args) => mathMin(args);
   static num max(List<num> args) => mathMax(args);
+  static num sqrt(num x) => sqrt(x);
+  static num ceil(num x) => x.ceil();
+  static num floor(num x) => x.floor();
+  static num round(num x) => x.round();
+  static num trunc(num x) =>  x.truncate();
 }
 
 
