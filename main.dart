@@ -232,6 +232,10 @@ class Array implements List<dynamic> {
     return Array()..addAll(_innerList.reversed);
   }
 
+  Array reverse() {
+    return Array()..addAll(_innerList.reversed);
+  }
+
   Array toSpliced(int start, int deleteCount, [dynamic item]) {
     return this.splice(start, deleteCount, item);
   }
