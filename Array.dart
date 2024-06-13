@@ -1,60 +1,5 @@
 import 'dart:math';
 
-num mathMin(List<num> args) {
-  var m = args[0];
-  for (var i = 0; i < args.length; i++) {
-    if (args[i] < m) {
-      m = args[i];
-    }
-  }
-  return m;
-}
-
-num mathMax(List<num> args) {
-  var m = args[0];
-  for (var i = 0; i < args.length; i++) {
-    if (args[i] > m) {
-      m = args[i];
-    }
-  }
-  return m;
-}
-
-class Math {
-  static num abs(x) => sqrt(x * x);
-  static num min(List<num> args) => mathMin(args);
-  static num max(List<num> args) => mathMax(args);
-}
-
-
-typedef function = dynamic;
-typedef let = dynamic;
-int parseInt(x) {
-  try {
-    return x.toInt();
-  } catch (e) {
-    try {
-      return int.parse(x);
-    } catch (e) {
-      return double.parse(x).toInt();
-    }
-  }
-}
-
-function n(x) {
-  try {
-    return BigInt.from(x);
-  } catch (e) {
-    try {
-      return BigInt.parse(x);
-    } catch (e) {
-      return BigInt.from(double.parse(x));
-    }
-  }
-}
-
-
-
 class Array implements List<dynamic> {
   final List<dynamic> _innerList = [];
 
@@ -72,44 +17,7 @@ class Array implements List<dynamic> {
   @override
   set length(int newLength) {
     _innerList.length = newLength;
-  }    @override
-    Array operator +(List<dynamic> other) {
-      return Array()..addAll(_innerList + other);
-    }
-
-    @override
-    set first(dynamic value) {
-      if (_innerList.isNotEmpty) {
-        _innerList[0] = value;
-      } else {
-        _innerList.add(value);
-      }
-    }
-
-    @override
-    set last(dynamic value) {
-      if (_innerList.isNotEmpty) {
-        _innerList[_innerList.length - 1] = value;
-      } else {
-        _innerList.add(value);
-      }
-    }
-
-    @override
-    bool remove(Object? value) {
-      return _innerList.remove(value);
-    }
-
-    @override
-    void removeWhere(bool Function(dynamic) test) {
-      _innerList.removeWhere(test);
-    }
-
-    @override
-    List<dynamic> sublist(int start, [int? end]) {
-      return _innerList.sublist(start, end);
-    }
-
+  }
 
   // JavaScript-like methods
   void push(dynamic value) {
@@ -141,12 +49,28 @@ class Array implements List<dynamic> {
     return Array()..addAll(removed);
   }
 
+  int indexOf(dynamic element, [int start = 0]) {
+    return _innerList.indexOf(element, start);
+  }
+
   bool includes(dynamic element) {
     return _innerList.contains(element);
   }
 
   Array concat(List<dynamic> other) {
     return Array()..addAll(_innerList)..addAll(other);
+  }
+
+  String join([String separator = ',']) {
+    return _innerList.join(separator);
+  }
+
+  void forEach(void Function(dynamic) callback) {
+    _innerList.forEach(callback);
+  }
+
+  Array map(dynamic Function(dynamic) callback) {
+    return Array()..addAll(_innerList.map(callback));
   }
 
   Array filter(bool Function(dynamic) callback) {
@@ -185,6 +109,9 @@ class Array implements List<dynamic> {
     return _innerList.asMap().entries;
   }
 
+  bool every(bool Function(dynamic) test) {
+    return _innerList.every(test);
+  }
 
   void fill(dynamic value, [int start = 0, int? end]) {
     _innerList.fillRange(start, end ?? _innerList.length, value);
@@ -207,10 +134,16 @@ class Array implements List<dynamic> {
   }
 
   Array flat([int depth = 1]) {
-     flatten(list, depth) {
-      return list.expand((i) => i is List && depth > 0 ? flatten(i, depth - 1) : [i]);
-     }
+    var flatten = (list, depth) => list.expand((i) => i is List && depth > 0 ? flatten(i, depth - 1) : [i]);
     return Array()..addAll(flatten(_innerList, depth));
+  }
+
+  Array flatMap(dynamic Function(dynamic) callback) {
+    return Array()..addAll(_innerList.expand(callback));
+  }
+
+  int lastIndexOf(dynamic element, [int? start]) {
+    return _innerList.lastIndexOf(element, start);
   }
 
   bool some(bool Function(dynamic) test) {
@@ -488,44 +421,12 @@ class Array implements List<dynamic> {
     }
   }
 
-class Number {
-  dynamic _value;
-  Number(this._value);
-  dynamic get valueOf => _value;
-   operator >= (Object other){
-     if(other is Number){
-      _value = other.valueOf;
-       return true;
-     }
-     if((other is int)
-      ||(other is double)
-      ||(other is String)
-      ||(other is BigInt)){
-       _value = other;
-        return true;
-      }
-     return false;
-   }
-   operator >>> (Object other){
-      if(other is Number){
-       return _value >= other.valueOf;
-      }
-      if((other is int)
-       ||(other is double)
-       ||(other is String)
-       ||(other is BigInt)){
-        return _value >= other;
-       }
-      return false;
-    }
-  @override
-  String toString() => '$valueOf';
-}
-
-void main() {
-  Number a = Number(5);
-  print(a);
-  a>=7;
-  print(a);
-}
-
+  void main() {
+    var arr = Array();
+    arr.push(1);
+    arr.push(2);
+    arr.push(3);
+    print(arr); 
+    arr.pop();
+    print(arr);
+  }
