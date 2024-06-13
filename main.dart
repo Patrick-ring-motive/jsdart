@@ -462,9 +462,10 @@ class Array implements List<dynamic> {
     }
 
     @override
-    void sort([int Function(dynamic, dynamic)? compare]) {
-      _innerList.sort(compare);
-    }
+Array sort([int Function(dynamic, dynamic)? compare]) {
+  _innerList.sort(compare);
+  return this;
+}
 
     @override
     Iterable<dynamic> take(int count) {
