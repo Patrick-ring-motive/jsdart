@@ -461,8 +461,7 @@ class Array implements List<dynamic> {
       return _innerList.skipWhile(test);
     }
 
-    @override
-Array sort([int Function(dynamic, dynamic)? compare]) {
+    @override Array sort([int Function(dynamic, dynamic)? compare]) {
   _innerList.sort(compare);
   return this;
 }
