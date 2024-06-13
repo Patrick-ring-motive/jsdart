@@ -77,6 +77,14 @@ class Array implements List<dynamic> {
       return Array()..addAll(_innerList + other);
     }
 
+  
+  static Array from(Iterable<dynamic> iterable) {
+    Array array = Array(); 
+    array.addAll(iterable);
+    return array;
+  }
+
+
     @override
     set first(dynamic value) {
       if (_innerList.isNotEmpty) {
@@ -110,8 +118,6 @@ class Array implements List<dynamic> {
       return _innerList.sublist(start, end);
     }
 
-
-  // JavaScript-like methods
   void push(dynamic value) {
     _innerList.add(value);
   }
@@ -250,7 +256,6 @@ class Array implements List<dynamic> {
   @override
   String toString() => _innerList.toString();
 
-  // Delegated methods from List interface
   @override
   void add(dynamic value) {
     _innerList.add(value);
