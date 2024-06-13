@@ -53,6 +53,47 @@ function n(x) {
   }
 }
 
-void main() {
-  print(n("2.0"));
+
+
+
+class Number {
+  dynamic _value;
+  Number(this._value);
+  dynamic get valueOf => _value;
+   operator >= (Object other){
+     if(other is Number){
+      _value = other.valueOf;
+       return true;
+     }
+     if((other is int)
+      ||(other is double)
+      ||(other is String)
+      ||(other is BigInt)){
+       _value = other;
+        return true;
+      }
+     return false;
+   }
+   operator >>> (Object other){
+      if(other is Number){
+       return _value >= other.valueOf;
+      }
+      if((other is int)
+       ||(other is double)
+       ||(other is String)
+       ||(other is BigInt)){
+        return _value >= other;
+       }
+      return false;
+    }
+  @override
+  String toString() => '$valueOf';
 }
+
+void main() {
+  Number a = Number(5);
+  print(a);
+  a>=7;
+  print(a);
+}
+
